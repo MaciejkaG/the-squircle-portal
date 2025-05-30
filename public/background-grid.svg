@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+Created with Inkscape (http://www.inkscape.org/).
+Designed by mcjk
+-->
+
+<svg
+   width="100mm"
+   height="100mm"
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   sodipodi:docname="background-grid.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.71104954"
+     inkscape:cx="87.898235"
+     inkscape:cy="152.59134"
+     inkscape:window-width="1424"
+     inkscape:window-height="796"
+     inkscape:window-x="258"
+     inkscape:window-y="1113"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Warstwa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:none;stroke:rgba(202, 151, 0, 0.15);stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1"
+       width="90.138779"
+       height="90.138779"
+       x="15.02313"
+       y="-75.115654"
+       transform="matrix(0.5547002,0.83205029,-0.5547002,0.83205029,0,0)" />
+    <rect
+       style="fill:none;stroke:rgba(202, 151, 0, 0.15);stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1-4"
+       width="90.138779"
+       height="90.138779"
+       x="45.069389"
+       y="-45.069389"
+       transform="matrix(0.5547002,0.83205029,-0.5547002,0.83205029,0,0)" />
+  </g>
+</svg>
