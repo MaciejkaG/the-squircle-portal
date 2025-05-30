@@ -14,12 +14,12 @@ export default function Home() {
         <p className="text-justify">
           Popularised by Apple, used by almost everyone. A squircle is a
           geometric shape that blends the characteristics of a square and a
-          circle. Mathematically, it's a specific case of a{" "}
+          circle. Mathematically, it&apos;s a specific case of a{" "}
           <em>superellipse</em>, a curve defined by an equation that allows for
           a smooth transition between angular and circular forms. At first
           glance, a squircle might look like a square with rounded corners, but
-          if you observe closely, you'll notice that the entire perimeter flows
-          in a continuous, rounded curve—not just the corners. This makes
+          if you observe closely, you&apos;ll notice that the entire perimeter
+          flows in a continuous, rounded curve—not just the corners. This makes
           squircles <em>amazing</em> as they look more organically smooth and
           visually balanced than a typical rounded square. Squircles are often
           used in modern design, user interfaces, and product shapes (like
@@ -32,8 +32,10 @@ export default function Home() {
         <p className="text-justify">
           The Squircle Portal was made because we <em>love</em> squircles. They
           can really make a design feel much more premium and refined, but
-          they're unfortunately not supported natively in many cases, CSS and
-          HTML don't have a direct way of using mathematical expressions as element shapes. There hasn't been any practical squircle-related website - until now.
+          they&apos;re unfortunately not supported natively in many cases, CSS
+          and HTML don&apos;t have a direct way of using mathematical
+          expressions as element shapes. There hasn&apos;t been any practical
+          squircle-related website - until now.
         </p>
         <h2 className="font-display font-bold text-3xl text-center">
           How does TSP help?
