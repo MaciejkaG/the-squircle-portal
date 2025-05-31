@@ -299,7 +299,7 @@ export default function ClipPathGenerator() {
                             clipPath,
                             width: "200px",
                             height: `${200 * (b / a)}px`,
-                            maxHeight: "250px",
+                            maxHeight: "200px",
                           }
                         : { width: "200px", height: "200px" }
                     }
@@ -336,7 +336,7 @@ export default function ClipPathGenerator() {
               <CardContent>
                 {clipPath && (
                   <div className="bg-slate-900 text-slate-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
-                    <div className="text-slate-400 mb-1">/* CSS */</div>
+                    <div className="text-slate-400 mb-1">{"/* CSS */"}</div>
                     <div className="text-blue-300">clip-path</div>
                     <span className="text-slate-300">: </span>
                     <span className="text-green-300 break-all">{clipPath}</span>
