@@ -1,43 +1,61 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 export function BackgroundGrid () {
   const overlayRef = useRef<HTMLDivElement>(null);
 
+  const setContainerHeight = () => {
+    const fullHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight,
+      document.body.clientHeight,
+      document.documentElement.clientHeight
+    );
+
+    if (overlayRef.current) {
+      overlayRef.current.style.height = `${fullHeight}px`;
+    }
+  };
+
+  // Observe document scrollHeight and update the background height when it changes.
+  const [scrollHeight, setScrollHeight] = useState(0);
+
   useEffect(() => {
-    const setOverlayHeight = () => {
-      const fullHeight = Math.max(
-        document.body.scrollHeight,
-        document.documentElement.scrollHeight,
-        document.body.offsetHeight,
-        document.documentElement.offsetHeight,
-        document.body.clientHeight,
-        document.documentElement.clientHeight
-      );
+    const update = () => setScrollHeight(document.documentElement.scrollHeight);
 
-      if (overlayRef.current) {
-        overlayRef.current.style.height = `${fullHeight}px`;
-      }
-    };
+    const observer = new MutationObserver(update);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      characterData: true,
+    });
 
-    setOverlayHeight();
-    window.addEventListener("resize", setOverlayHeight);
+    window.addEventListener("resize", update);
 
+    // cleanup
     return () => {
-      window.removeEventListener("resize", setOverlayHeight);
+      observer.disconnect();
+      window.removeEventListener("resize", update);
     };
   }, []);
+
+  useEffect(() => {
+    setContainerHeight();
+  }, [scrollHeight]);
 
   return (
     <div
       ref={overlayRef}
-      className="absolute top-0 left-0 w-full -z-10"
+      className="absolute top-0 left-0 w-full -z-10 overflow-hidden"
       style={{
-        background: "url(/background-grid.svg)",
+        backgroundImage: "url(/background-grid.svg)",
         backgroundSize: "4rem",
         maskImage:
-          "linear-gradient(to bottom,  transparent 3rem, black 6rem, black calc(100% - 7.5rem), transparent calc(100% - 4.5rem))",
+          "linear-gradient(to bottom, transparent 3rem, black 9rem)",
         maskMode: "alpha",
         maskRepeat: "no-repeat",
         maskSize: "100% 100%",

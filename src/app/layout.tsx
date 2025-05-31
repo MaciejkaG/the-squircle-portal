@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "./providers";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { BackgroundGrid } from "@/components/BackgroundGrid";
 
 const cormorantGaramond = Cormorant_Garamond({
   weight: ["600", "700"],
@@ -33,8 +34,9 @@ export default function RootLayout({
         className={`${cormorantGaramond.variable} ${workSans.variable} antialiased`}
       >
         <Providers>
+          <BackgroundGrid />
           <Navbar />
-          {children}
+          <div className="mt-16">{children}</div>
           <Footer />
         </Providers>
       </body>

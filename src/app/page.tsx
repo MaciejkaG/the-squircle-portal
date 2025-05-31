@@ -1,9 +1,6 @@
-import { BackgroundGrid } from "@/components/BackgroundGrid";
-
 export default function Home() {
   return (
     <div>
-      <BackgroundGrid />
       <h1 className="font-display font-bold text-5xl sm:text-6xl md:text-7xl mt-24 mb-12 text-center">
         The Squircle Portal
       </h1>
