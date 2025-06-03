@@ -32,7 +32,7 @@ export default function Home() {
           they&apos;re unfortunately not supported natively in many cases, CSS
           and HTML don&apos;t have a direct way of using mathematical
           expressions as element shapes. There hasn&apos;t been any practical
-          squircle-related website - until now.
+          squircle-related website—until now.
         </p>
         <h2 className="font-display font-bold text-3xl text-center">
           How does TSP help?

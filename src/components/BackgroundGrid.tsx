@@ -1,11 +1,16 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
-export function BackgroundGrid () {
+export function BackgroundGrid() {
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  const setContainerHeight = () => {
+  const updateHeight = () => {
+    if (!overlayRef.current) return;
+
+    // Temporarily reset height to get accurate content height
+    overlayRef.current.style.height = "0px";
+
     const fullHeight = Math.max(
       document.body.scrollHeight,
       document.documentElement.scrollHeight,
@@ -15,37 +20,45 @@ export function BackgroundGrid () {
       document.documentElement.clientHeight
     );
 
-    if (overlayRef.current) {
-      overlayRef.current.style.height = `${fullHeight}px`;
-    }
+    overlayRef.current.style.height = `${fullHeight}px`;
   };
 
-  // Observe document scrollHeight and update the background height when it changes.
-  const [scrollHeight, setScrollHeight] = useState(0);
-
   useEffect(() => {
-    const update = () => setScrollHeight(document.documentElement.scrollHeight);
+    // Initial height set
+    updateHeight();
 
-    const observer = new MutationObserver(update);
-    observer.observe(document.body, {
+    // ResizeObserver for body and documentElement
+    const resizeObserver = new ResizeObserver(() => {
+      updateHeight();
+    });
+
+    resizeObserver.observe(document.body);
+    resizeObserver.observe(document.documentElement);
+
+    // MutationObserver for DOM changes that might affect height
+    const mutationObserver = new MutationObserver(() => {
+      // Use requestAnimationFrame to ensure DOM has been updated
+      requestAnimationFrame(updateHeight);
+    });
+
+    mutationObserver.observe(document.body, {
       childList: true,
       subtree: true,
       attributes: true,
       characterData: true,
     });
 
-    window.addEventListener("resize", update);
+    // Window resize handler
+    const handleResize = () => updateHeight();
+    window.addEventListener("resize", handleResize);
 
-    // cleanup
+    // Cleanup
     return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", update);
+      resizeObserver.disconnect();
+      mutationObserver.disconnect();
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  useEffect(() => {
-    setContainerHeight();
-  }, [scrollHeight]);
 
   return (
     <div
@@ -54,12 +67,11 @@ export function BackgroundGrid () {
       style={{
         backgroundImage: "url(/background-grid.svg)",
         backgroundSize: "4rem",
-        maskImage:
-          "linear-gradient(to bottom, transparent 3rem, black 9rem)",
+        maskImage: "linear-gradient(to bottom, transparent 3rem, black 9rem)",
         maskMode: "alpha",
         maskRepeat: "no-repeat",
         maskSize: "100% 100%",
       }}
     />
   );
-};
+}

@@ -23,40 +23,25 @@ type Menu = MenuElement[];
 
 const learningResources: Menu = [
   {
-    title: "Squircles - Introduction",
-    href: "#",
+    title: "Squircles — Introduction",
+    href: "/learn/introduction",
     description: "Get to know superellipses and squircle basics.",
   },
   {
-    title: "Squircles - Mathematical definition",
+    title: "Squircles — Mathematical definition",
     href: "#",
     description: "Learn about the Lamé curve and it's mathematical definition.",
   },
   {
-    title: "Squircles - JavaScript Implementation",
+    title: "Squircles — JavaScript Implementation",
     href: "#",
     description: "Implement squircles on a website using JS and CSS.",
   },
   {
-    title: "Squircles - Python Implementation",
+    title: "Squircles — Python Implementation",
     href: "#",
     description:
       "Create a squircle in Turtle graphics using Python.",
-  },
-];
-
-const generators: Menu = [
-  {
-    title: "SVG generator",
-    href: "#",
-    description:
-      "Create squircles with custom parameters in Scalable Vector Graphics.",
-  },
-  {
-    title: "CSS clip-path generator",
-    href: "#",
-    description:
-      "Create squircles to be easily applied as your HTML elements' shapes.",
   },
 ];
 
@@ -90,7 +75,7 @@ export function Navbar() {
         />
         <img
           src="/tsp-logo-dark.svg"
-          className="h-7 hidden dark:sm:block dark:block"
+          className="h-7 hidden dark:sm:block"
         />
         <span className="font-display font-bold inline sm:hidden">TSP</span>
       </Link>

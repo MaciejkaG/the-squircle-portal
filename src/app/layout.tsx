@@ -18,7 +18,7 @@ const workSans = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "The Squircle Portal - Everything Squircles",
+  title: "The Squircle Portal — Everything Squircles",
   description:
     "The Squircle Portal is your ultimate resource for everything squircles.",
 };
