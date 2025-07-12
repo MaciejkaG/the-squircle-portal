@@ -10,7 +10,7 @@ export function Footer() {
       <p className="text-center">
         The Squircle Portal is developed and maintained independently. Please
         consider{" "}
-        <Link targetBlank href="https://ko-fi.com/maciejkag">
+        <Link targetBlank href="https://ko-fi.com/mcjk">
           donating
         </Link>
         .

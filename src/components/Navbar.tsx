@@ -29,17 +29,17 @@ const learningResources: Menu = [
   },
   {
     title: "Squircles — Mathematical definition",
-    href: "#",
+    href: "/learn/mathematical-definition",
     description: "Learn about the Lamé curve and it's mathematical definition.",
   },
   {
     title: "Squircles — JavaScript Implementation",
-    href: "#",
+    href: "/learn/javascript-implementation",
     description: "Implement squircles on a website using JS and CSS.",
   },
   {
     title: "Squircles — Python Implementation",
-    href: "#",
+    href: "/learn/python-implementation",
     description:
       "Create a squircle in Turtle graphics using Python.",
   },
@@ -99,7 +99,7 @@ export function Navbar() {
               asChild
               className={navigationMenuTriggerStyle()}
             >
-              <Link href="/generator">Squircle generator</Link>
+              <Link href="/generator">Squircle Generator</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>

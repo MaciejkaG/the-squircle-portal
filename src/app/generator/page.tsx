@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Copy } from "lucide-react";
+import { Copy, Link, Unlink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { squircleClipPath } from "@/lib/generators";
@@ -23,6 +23,7 @@ export default function ClipPathGenerator() {
   const [nX, setNX] = useState(4);
   const [nY, setNY] = useState(4);
   const [steps, setSteps] = useState(64);
+  const [isLinked, setIsLinked] = useState(true);
 
   const [clipPath, setClipPath] = useState<string | null>(null);
 
@@ -139,7 +140,7 @@ export default function ClipPathGenerator() {
                   Curvature
                 </h3>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="nx-input" className="text-sm font-medium">
                       Horizontal (nX)
@@ -147,7 +148,13 @@ export default function ClipPathGenerator() {
                     <div className="space-y-3">
                       <Slider
                         value={[nX]}
-                        onValueChange={(value) => setNX(value[0])}
+                        onValueChange={(value) => {
+                          const newNX = value[0];
+                          setNX(newNX);
+                          if (isLinked) {
+                            setNY(newNX);
+                          }
+                        }}
                         min={0.5}
                         max={20}
                         step={0.1}
@@ -157,13 +164,30 @@ export default function ClipPathGenerator() {
                         id="nx-input"
                         type="number"
                         value={nX}
-                        onChange={(e) => setNX(parseFloat(e.target.value) || 0)}
+                        onChange={(e) => {
+                          const newNX = parseFloat(e.target.value) || 0;
+                          setNX(newNX);
+                          if (isLinked) {
+                            setNY(newNX);
+                          }
+                        }}
                         className="text-center"
                         min="0.5"
                         max="20"
                         step="0.1"
                       />
                     </div>
+                  </div>
+
+                  <div className="flex items-center justify-center pt-8">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setIsLinked(!isLinked)}
+                      className={isLinked ? "text-accent-foreground" : "text-muted-foreground"}
+                    >
+                      {isLinked ? <Link className="w-5 h-5" /> : <Unlink className="w-5 h-5" />}
+                    </Button>
                   </div>
 
                   <div className="space-y-2">
@@ -173,7 +197,13 @@ export default function ClipPathGenerator() {
                     <div className="space-y-3">
                       <Slider
                         value={[nY]}
-                        onValueChange={(value) => setNY(value[0])}
+                        onValueChange={(value) => {
+                          const newNY = value[0];
+                          setNY(newNY);
+                          if (isLinked) {
+                            setNX(newNY);
+                          }
+                        }}
                         min={0.5}
                         max={20}
                         step={0.1}
@@ -183,7 +213,13 @@ export default function ClipPathGenerator() {
                         id="ny-input"
                         type="number"
                         value={nY}
-                        onChange={(e) => setNY(parseFloat(e.target.value) || 0)}
+                        onChange={(e) => {
+                          const newNY = parseFloat(e.target.value) || 0;
+                          setNY(newNY);
+                          if (isLinked) {
+                            setNX(newNY);
+                          }
+                        }}
                         className="text-center"
                         min="0.5"
                         max="20"
