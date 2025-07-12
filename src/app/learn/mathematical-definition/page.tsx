@@ -21,8 +21,8 @@ export default function MathematicalDefinition(): React.JSX.Element {
         <Equation>{`|x/a|^n + |y/b|^n = 1`}</Equation>
         <ResourceParagraph>
           In this equation, `a` and `b` are the semi-diameters of the shape,
-          and `n` is a positive number that determines the shape's
-          "roundness". For a squircle, we have the special case where a = b
+          and `n` is a positive number that determines the shape&apos;s
+          &quot;roundness&quot;. For a squircle, we have the special case where a = b
           and n = 4.
         </ResourceParagraph>
         <ResourceH2>The Lamé Curve</ResourceH2>
@@ -46,7 +46,7 @@ export default function MathematicalDefinition(): React.JSX.Element {
           </li>
           <li>
             <strong>n:</strong> This is the most interesting parameter. It
-            controls the "pointiness" of the corners. As `n` increases, the
+            controls the &quot;pointiness&quot; of the corners. As `n` increases, the
             shape becomes more square-like. For `n = 2`, the equation
             describes a regular ellipse. For `n = 4`, we get the squircle.
             As `n` approaches infinity, the shape approaches a perfect

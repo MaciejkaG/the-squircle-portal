@@ -17,7 +17,7 @@ export default function Introduction(): React.JSX.Element {
         <ResourceParagraph>
           Have you ever noticed how certain shapes just feel more pleasing to
           the eye than others? The squircle—a delightful hybrid between a square
-          and a circle—represents one of design's most elegant solutions to a
+          and a circle—represents one of design&apos;s most elegant solutions to a
           fundamental visual problem. While rectangles can feel rigid and
           circles might seem too soft, squircles strike that perfect balance
           between structure and smoothness that makes them irresistibly
@@ -29,7 +29,7 @@ export default function Introduction(): React.JSX.Element {
           famously embraced this shape for their app icons, creating that
           distinctive rounded-yet-structured look that has become synonymous
           with modern iOS design. Many Android implementations have followed suit,
-          and you'll find squircle-inspired designs in everything from user
+          and you&apos;ll find squircle-inspired designs in everything from user
           interface elements to architectural features in contemporary
           buildings.
         </ResourceParagraph>
@@ -48,7 +48,7 @@ export default function Introduction(): React.JSX.Element {
         </ResourceParagraph>
 
         <ResourceParagraph>
-          This isn't just about aesthetics, though visual appeal certainly plays
+          This isn&apos;t just about aesthetics, though visual appeal certainly plays
           a major role. Squircles solve practical design problems too. They
           provide more usable area than circles of similar visual weight, while
           feeling less aggressive than sharp-cornered rectangles. For
@@ -63,7 +63,7 @@ export default function Introduction(): React.JSX.Element {
           Squircles belong to a broader family of shapes called superellipses,
           each with its own personality and use cases. Imagine having a dial
           that lets you gradually transform a diamond shape into a square, then
-          into a squircle, and finally into a circle. That's essentially what
+          into a squircle, and finally into a circle. That&apos;s essentially what
           the superellipse family offers—a continuous spectrum of shapes that
           bridge the gap between angular and curved forms.
         </ResourceParagraph>
@@ -81,12 +81,12 @@ export default function Introduction(): React.JSX.Element {
         <ResourceH2>The HTML Challenge</ResourceH2>
 
         <ResourceParagraph>
-          Here's where things get interesting from a technical perspective.
+          Here&apos;s where things get interesting from a technical perspective.
           Creating a perfect squircle in HTML and CSS is surprisingly tricky.
           You might think you could simply use the <code>border-radius</code>{" "}
           property to round the corners of a square, but that approach only gets
           you partway there. Standard CSS border-radius creates circular arcs at
-          the corners, which can look somewhat squircle-like but doesn't produce
+          the corners, which can look somewhat squircle-like but doesn&apos;t produce
           the mathematically precise curves that define a true squircle.
         </ResourceParagraph>
 
@@ -118,7 +118,7 @@ export default function Introduction(): React.JSX.Element {
         </ResourceParagraph>
 
         <ResourceParagraph>
-          Even in nature, we find forms that echo the squircle's balanced
+          Even in nature, we find forms that echo the squircle&apos;s balanced
           proportions. Certain leaves, fruits, and even the cross-sections of
           some tree trunks display similar characteristics—that perfect tension
           between structure and softness that makes squircles feel so
@@ -128,7 +128,7 @@ export default function Introduction(): React.JSX.Element {
         <ResourceH2>The Psychology of Shape</ResourceH2>
 
         <ResourceParagraph>
-          There's something deeply satisfying about the way squircles resolve
+          There&apos;s something deeply satisfying about the way squircles resolve
           the visual tension between geometric precision and organic flow. Our
           brains seem to appreciate shapes that suggest both stability and
           movement, structure and flexibility. This might explain why squircles
@@ -137,7 +137,7 @@ export default function Introduction(): React.JSX.Element {
         </ResourceParagraph>
 
         <ResourceParagraph>
-          Consider how different a grid of app icons feels when they're perfect
+          Consider how different a grid of app icons feels when they&apos;re perfect
           squares versus squircles. The square versions can feel rigid and
           institutional, while circular icons might seem too playful or
           unstable. Squircles thread this needle perfectly, creating interfaces
@@ -148,11 +148,11 @@ export default function Introduction(): React.JSX.Element {
 
         <ResourceParagraph>
           As design tools continue to evolve and mathematical shape generation
-          becomes more accessible, we're likely to see even more creative
+          becomes more accessible, we&apos;re likely to see even more creative
           applications of squircles and their superelliptical relatives. The
           principles that make these shapes appealing— their balance of
           structure and flow, their visual harmony, their practical
-          advantages—suggest they'll remain relevant across many design
+          advantages—suggest they&apos;ll remain relevant across many design
           contexts.
         </ResourceParagraph>
 
