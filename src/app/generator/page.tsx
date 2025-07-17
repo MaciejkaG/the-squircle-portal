@@ -12,10 +12,62 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Copy, Link, Unlink } from "lucide-react";
+import {
+  Copy,
+  Link,
+  Unlink,
+  Download,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { squircleClipPath } from "@/lib/generators";
+
+// Updated squircle generator that only uses nX and nY for the actual path
+const squircleClipPath = ({ nX, nY, steps }: { nX: number, nY: number, steps: number }) => {
+  const points = [];
+
+  for (let i = 0; i <= steps; i++) {
+    const angle = (i / steps) * 2 * Math.PI;
+    const cosAngle = Math.cos(angle);
+    const sinAngle = Math.sin(angle);
+
+    const x =
+      50 + 50 * Math.sign(cosAngle) * Math.pow(Math.abs(cosAngle), 2 / nX);
+    const y =
+      50 + 50 * Math.sign(sinAngle) * Math.pow(Math.abs(sinAngle), 2 / nY);
+
+    points.push(`${x.toFixed(2)}% ${y.toFixed(2)}%`);
+  }
+
+  return `polygon(${points.join(", ")})`;
+};
+
+// Generate SVG path for the superellipse
+const generateSVGPath = ({ nX, nY, steps, width = 200, height = 200 }: {  nX: number, nY: number, steps: number, width: number, height: number }) => {
+  const points = [];
+  const centerX = width / 2;
+  const centerY = height / 2;
+  const radiusX = width / 2;
+  const radiusY = height / 2;
+
+  for (let i = 0; i <= steps; i++) {
+    const angle = (i / steps) * 2 * Math.PI;
+    const cosAngle = Math.cos(angle);
+    const sinAngle = Math.sin(angle);
+
+    const x =
+      centerX +
+      radiusX * Math.sign(cosAngle) * Math.pow(Math.abs(cosAngle), 2 / nX);
+    const y =
+      centerY +
+      radiusY * Math.sign(sinAngle) * Math.pow(Math.abs(sinAngle), 2 / nY);
+
+    points.push(`${x.toFixed(2)},${y.toFixed(2)}`);
+  }
+
+  return `M ${points[0]} L ${points.slice(1).join(" L ")} Z`;
+};
 
 export default function ClipPathGenerator() {
   const [a, setA] = useState(100);
@@ -24,18 +76,43 @@ export default function ClipPathGenerator() {
   const [nY, setNY] = useState(4);
   const [steps, setSteps] = useState(64);
   const [isLinked, setIsLinked] = useState(true);
+  const [isCodeExpanded, setIsCodeExpanded] = useState(false);
 
   const [clipPath, setClipPath] = useState<string | null>(null);
 
   useEffect(() => {
-    const squirclePath = squircleClipPath({ a, b, nX, nY, steps });
+    const squirclePath = squircleClipPath({ nX, nY, steps });
     setClipPath(squirclePath);
-  }, [a, b, nX, nY, steps]);
+  }, [nX, nY, steps]);
+
+  // Sync nY to nX when linking is enabled
+  useEffect(() => {
+    if (isLinked && nX !== nY) {
+      setNY(nX);
+    }
+  }, [isLinked, nX]);
 
   const copyToClipboard = async () => {
     if (clipPath) {
       await navigator.clipboard.writeText(`clip-path: ${clipPath};`);
     }
+  };
+
+  const downloadSVG = () => {
+    const svgPath = generateSVGPath({ nX, nY, steps, width: a, height: b });
+    const svg = `<svg width="${a}" height="${b}" viewBox="0 0 ${a} ${b}" xmlns="http://www.w3.org/2000/svg">
+  <path d="${svgPath}" fill="currentColor" />
+</svg>`;
+
+    const blob = new Blob([svg], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `superellipse-${nX}-${nY}.svg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   const getShapeDescription = () => {
@@ -52,10 +129,10 @@ export default function ClipPathGenerator() {
     <div className="min-h-screen p-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="font-display text-4xl font-bold-800 mb-2">
+          <h1 className="font-display text-4xl font-bold mb-2">
             Superellipse Generator
           </h1>
-          <p>
+          <p className="text-muted-foreground">
             Create beautiful squircles and superellipses with real-time preview
           </p>
         </div>
@@ -73,11 +150,15 @@ export default function ClipPathGenerator() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Dimensions */}
+              {/* Preview Dimensions */}
               <div className="space-y-4">
-                <h3 className="text-sm font-semibold uppercase tracking-wide">
-                  Dimensions
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  Preview Dimensions
                 </h3>
+                <p className="text-sm text-muted-foreground">
+                  These only affect the preview and SVG export, not the CSS
+                  clip-path
+                </p>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -136,7 +217,7 @@ export default function ClipPathGenerator() {
 
               {/* Curvature */}
               <div className="space-y-4">
-                <h3 className="text-sm font-semibold uppercase tracking-wide">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                   Curvature
                 </h3>
 
@@ -184,9 +265,17 @@ export default function ClipPathGenerator() {
                       variant="ghost"
                       size="icon"
                       onClick={() => setIsLinked(!isLinked)}
-                      className={isLinked ? "text-accent-foreground" : "text-muted-foreground"}
+                      className={
+                        isLinked
+                          ? "text-accent-foreground"
+                          : "text-muted-foreground"
+                      }
                     >
-                      {isLinked ? <Link className="w-5 h-5" /> : <Unlink className="w-5 h-5" />}
+                      {isLinked ? (
+                        <Link className="w-5 h-5" />
+                      ) : (
+                        <Unlink className="w-5 h-5" />
+                      )}
                     </Button>
                   </div>
 
@@ -208,6 +297,7 @@ export default function ClipPathGenerator() {
                         max={20}
                         step={0.1}
                         className="w-full"
+                        disabled={isLinked}
                       />
                       <Input
                         id="ny-input"
@@ -224,6 +314,7 @@ export default function ClipPathGenerator() {
                         min="0.5"
                         max="20"
                         step="0.1"
+                        disabled={isLinked}
                       />
                     </div>
                   </div>
@@ -234,7 +325,7 @@ export default function ClipPathGenerator() {
 
               {/* Quality */}
               <div className="space-y-4">
-                <h3 className="text-sm font-semibold uppercase tracking-wide">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                   Quality
                 </h3>
 
@@ -261,13 +352,16 @@ export default function ClipPathGenerator() {
                       max="200"
                     />
                   </div>
-                  <p className="text-muted-foreground text-sm">Steps are the amount of points the end polygon will consist of. More steps will result in a smoother shape at the cost of performance.</p>
+                  <p className="text-muted-foreground text-sm">
+                    Higher values create smoother curves but increase CSS
+                    complexity
+                  </p>
                 </div>
               </div>
 
               {/* Quick Presets */}
               <div className="space-y-4">
-                <h3 className="text-sm font-semibold uppercase tracking-wide">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                   Quick Presets
                 </h3>
                 <div className="flex flex-wrap gap-2">
@@ -326,9 +420,9 @@ export default function ClipPathGenerator() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="flex items-center justify-center p-8 border bg-accent rounded-lg min-h-[300px]">
+                <div className="flex items-center justify-center p-8 border bg-accent/50 rounded-lg min-h-[300px]">
                   <div
-                    className="bg-theme shadow-lg transition-all duration-300"
+                    className="bg-primary shadow-lg transition-all duration-300 ease-in-out"
                     style={
                       clipPath
                         ? {
@@ -342,10 +436,12 @@ export default function ClipPathGenerator() {
                   />
                 </div>
 
-                <div className="mt-4 text-center text-sm">
-                  <p>Aspect Ratio: {(a / b).toFixed(2)}:1</p>
+                <div className="mt-4 text-center text-sm text-muted-foreground">
                   <p>
-                    Dimensions: {a} × {b}
+                    Preview: {a} × {b} • Ratio: {(a / b).toFixed(2)}:1
+                  </p>
+                  <p>
+                    Shape: nX={nX}, nY={nY}
                   </p>
                 </div>
               </CardContent>
@@ -354,31 +450,63 @@ export default function ClipPathGenerator() {
             <Card className="shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
-                  CSS Output
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={copyToClipboard}
-                    className="flex items-center gap-2"
-                  >
-                    <Copy className="w-4 h-4" />
-                    Copy
-                  </Button>
+                  Export Options
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={downloadSVG}
+                      className="flex items-center gap-2"
+                    >
+                      <Download className="w-4 h-4" />
+                      SVG
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={copyToClipboard}
+                      className="flex items-center gap-2"
+                    >
+                      <Copy className="w-4 h-4" />
+                      CSS
+                    </Button>
+                  </div>
                 </CardTitle>
                 <CardDescription>
-                  Use this CSS clip-path in your projects
+                  Export as SVG or copy the CSS clip-path
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {clipPath && (
-                  <div className="bg-slate-900 text-slate-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
-                    <div className="text-slate-400 mb-1">{"/* CSS */"}</div>
-                    <div className="text-blue-300">clip-path</div>
-                    <span className="text-slate-300">: </span>
-                    <span className="text-green-300 break-all">{clipPath}</span>
-                    <span className="text-slate-300">;</span>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">CSS Clip-path</span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setIsCodeExpanded(!isCodeExpanded)}
+                      className="flex items-center gap-2"
+                    >
+                      {isCodeExpanded ? (
+                        <ChevronUp className="w-4 h-4" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4" />
+                      )}
+                      {isCodeExpanded ? "Collapse" : "Expand"}
+                    </Button>
                   </div>
-                )}
+
+                  {isCodeExpanded && clipPath && (
+                    <div className="bg-slate-900 text-slate-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                      <div className="text-slate-400 mb-1">{"/* CSS */"}</div>
+                      <div className="text-blue-300">clip-path</div>
+                      <span className="text-slate-300">: </span>
+                      <span className="text-green-300 break-all">
+                        {clipPath}
+                      </span>
+                      <span className="text-slate-300">;</span>
+                    </div>
+                  )}
+                </div>
               </CardContent>
             </Card>
           </div>
