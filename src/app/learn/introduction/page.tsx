@@ -8,6 +8,11 @@ import {
   ResourceH2,
   ResourceFooter
 } from "@/components/Resource";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'The Squircle Portal — "Squircles — Introduction"',
+};
 
 export default function Introduction(): React.JSX.Element {
   return (

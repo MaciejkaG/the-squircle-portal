@@ -8,11 +8,16 @@ import {
   ResourceFooter,
 } from "@/components/Resource";
 import { Equation } from "@/components/Equation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'The Squircle Portal — "Squircles — Mathematical Definition"',
+};
 
 export default function MathematicalDefinition(): React.JSX.Element {
   return (
     <ResourceContainer>
-      <ResourceHeader title="Squircles — Mathematical definition" />
+      <ResourceHeader title="Squircles — Mathematical Definition" />
       <ResourceContent>
         <ResourceParagraph>
           The squircle is a specific case of a superellipse, a family of

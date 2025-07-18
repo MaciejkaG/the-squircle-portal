@@ -9,6 +9,11 @@ import {
   ResourceFooter,
 } from "@/components/Resource";
 import { Code } from "@/components/Code";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'The Squircle Portal — "Squircles — JavaScript Implementation"',
+};
 
 export default function JavaScriptImplementation(): React.JSX.Element {
   return (
