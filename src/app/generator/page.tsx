@@ -155,61 +155,66 @@ export default function ClipPathGenerator() {
                 <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                   Preview Dimensions
                 </h3>
-                <p className="text-sm text-muted-foreground">
-                  These only affect the preview and SVG export, not the CSS
-                  clip-path
-                </p>
+                <div className="space-y-2">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="a-input" className="text-sm font-medium">
+                        Width (a)
+                      </Label>
+                      <div className="space-y-3">
+                        <Slider
+                          value={[a]}
+                          onValueChange={(value) => setA(value[0])}
+                          min={10}
+                          max={300}
+                          step={5}
+                          className="w-full"
+                        />
+                        <Input
+                          id="a-input"
+                          type="number"
+                          value={a}
+                          onChange={(e) =>
+                            setA(parseFloat(e.target.value) || 0)
+                          }
+                          className="text-center"
+                          min="10"
+                          max="300"
+                        />
+                      </div>
+                    </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="a-input" className="text-sm font-medium">
-                      Width (a)
-                    </Label>
-                    <div className="space-y-3">
-                      <Slider
-                        value={[a]}
-                        onValueChange={(value) => setA(value[0])}
-                        min={10}
-                        max={300}
-                        step={5}
-                        className="w-full"
-                      />
-                      <Input
-                        id="a-input"
-                        type="number"
-                        value={a}
-                        onChange={(e) => setA(parseFloat(e.target.value) || 0)}
-                        className="text-center"
-                        min="10"
-                        max="300"
-                      />
+                    <div className="space-y-2">
+                      <Label htmlFor="b-input" className="text-sm font-medium">
+                        Height (b)
+                      </Label>
+                      <div className="space-y-3">
+                        <Slider
+                          value={[b]}
+                          onValueChange={(value) => setB(value[0])}
+                          min={10}
+                          max={300}
+                          step={5}
+                          className="w-full"
+                        />
+                        <Input
+                          id="b-input"
+                          type="number"
+                          value={b}
+                          onChange={(e) =>
+                            setB(parseFloat(e.target.value) || 0)
+                          }
+                          className="text-center"
+                          min="10"
+                          max="300"
+                        />
+                      </div>
                     </div>
                   </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="b-input" className="text-sm font-medium">
-                      Height (b)
-                    </Label>
-                    <div className="space-y-3">
-                      <Slider
-                        value={[b]}
-                        onValueChange={(value) => setB(value[0])}
-                        min={10}
-                        max={300}
-                        step={5}
-                        className="w-full"
-                      />
-                      <Input
-                        id="b-input"
-                        type="number"
-                        value={b}
-                        onChange={(e) => setB(parseFloat(e.target.value) || 0)}
-                        className="text-center"
-                        min="10"
-                        max="300"
-                      />
-                    </div>
-                  </div>
+                  <p className="text-muted-foreground text-sm">
+                    These only affect the preview and SVG export, not the CSS
+                    clip-path
+                  </p>
                 </div>
               </div>
 
