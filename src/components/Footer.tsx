@@ -8,8 +8,8 @@ export function Footer() {
 
       {/* Footer content */}
       <p className="text-center">
-        The Squircle Portal is developed and maintained independently. Please
-        consider{" "}
+        The Squircle Portal is maintained independently and provided without
+        ads. Please consider{" "}
         <Link targetBlank href="https://ko-fi.com/mcjk">
           donating
         </Link>
@@ -17,10 +17,16 @@ export function Footer() {
       </p>
       <div className="mx-auto w-3xl max-w-full flex flex-col sm:grid sm:grid-cols-3 sm:gap-2 text-center">
         <span>
-          Copyright © 2025 <Link href="https://mcjk.cc/" targetBlank>mcjk</Link>
+          Copyright © 2025{" "}
+          <Link href="https://mcjk.cc/" targetBlank>
+            mcjk
+          </Link>
         </span>
         <Link href="mailto:contact@squircle.site">contact@squircle.site</Link>
-        <Link href="https://github.com/MaciejkaG/the-squircle-portal" targetBlank>
+        <Link
+          href="https://github.com/MaciejkaG/the-squircle-portal"
+          targetBlank
+        >
           GitHub
         </Link>
       </div>
