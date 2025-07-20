@@ -78,9 +78,14 @@ export function Navbar() {
         <Link href="/">
           <img
             src="/tsp-logo-light.svg"
+            alt="The Squircle Portal full logo light theme"
             className="h-7 hidden sm:block dark:hidden"
           />
-          <img src="/tsp-logo-dark.svg" className="h-7 hidden dark:sm:block" />
+          <img
+            src="/tsp-logo-dark.svg"
+            alt="The Squircle Portal full logo dark theme"
+            className="h-7 hidden dark:sm:block"
+          />
           <span className="font-display font-bold inline sm:hidden">TSP</span>
         </Link>
 
