@@ -106,10 +106,20 @@ export default function Introduction(): React.JSX.Element {
           image files.
         </ResourceParagraph>
 
-        <img
-          src="/placeholder-squircle-comparison.png"
-          alt="Comparison showing regular rounded rectangle vs true squircle"
-        />
+        <figure className="grid grid-cols-2 gap-6 rounded-xl border border-border p-6 text-center">
+          <div className="space-y-3">
+            <div className="mx-auto aspect-square w-full max-w-48 rounded-[25%] bg-primary" />
+            <figcaption className="text-sm text-muted-foreground">
+              Rounded rectangle
+            </figcaption>
+          </div>
+          <div className="space-y-3">
+            <div className="mx-auto aspect-square w-full max-w-48 [clip-path:polygon(50%_0%,69.13%_0.36%,85.36%_1.45%,96.19%_3.81%,100%_14.64%,99.64%_30.87%,98.55%_50%,99.64%_69.13%,100%_85.36%,96.19%_96.19%,85.36%_100%,69.13%_99.64%,50%_100%,30.87%_99.64%,14.64%_100%,3.81%_96.19%,0%_85.36%,0.36%_69.13%,1.45%_50%,0.36%_30.87%,0%_14.64%,3.81%_3.81%,14.64%_0%,30.87%_0.36%)] bg-primary" />
+            <figcaption className="text-sm text-muted-foreground">
+              Superellipse
+            </figcaption>
+          </div>
+        </figure>
 
         <ResourceH2>Beyond Digital Design</ResourceH2>
 

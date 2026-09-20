@@ -21,7 +21,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // Updated squircle generator that only uses nX and nY for the actual path
 const squircleClipPath = ({ nX, nY, steps }: { nX: number, nY: number, steps: number }) => {
@@ -78,24 +78,10 @@ export default function ClipPathGenerator() {
   const [isLinked, setIsLinked] = useState(true);
   const [isCodeExpanded, setIsCodeExpanded] = useState(false);
 
-  const [clipPath, setClipPath] = useState<string | null>(null);
-
-  useEffect(() => {
-    const squirclePath = squircleClipPath({ nX, nY, steps });
-    setClipPath(squirclePath);
-  }, [nX, nY, steps]);
-
-  // Sync nY to nX when linking is enabled
-  useEffect(() => {
-    if (isLinked && nX !== nY) {
-      setNY(nX);
-    }
-  }, [isLinked, nX]);
+  const clipPath = squircleClipPath({ nX, nY, steps });
 
   const copyToClipboard = async () => {
-    if (clipPath) {
-      await navigator.clipboard.writeText(`clip-path: ${clipPath};`);
-    }
+    await navigator.clipboard.writeText(`clip-path: ${clipPath};`);
   };
 
   const downloadSVG = () => {
@@ -269,7 +255,17 @@ export default function ClipPathGenerator() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => setIsLinked(!isLinked)}
+                      aria-label={
+                        isLinked
+                          ? "Unlink curvature values"
+                          : "Link curvature values"
+                      }
+                      aria-pressed={isLinked}
+                      onClick={() => {
+                        const nextIsLinked = !isLinked;
+                        setIsLinked(nextIsLinked);
+                        if (nextIsLinked) setNY(nX);
+                      }}
                       className={
                         isLinked
                           ? "text-accent-foreground"
@@ -428,16 +424,12 @@ export default function ClipPathGenerator() {
                 <div className="flex items-center justify-center p-8 border bg-accent/50 rounded-lg min-h-[300px]">
                   <div
                     className="bg-primary shadow-lg transition-all duration-300 ease-in-out"
-                    style={
-                      clipPath
-                        ? {
-                            clipPath,
-                            width: "200px",
-                            height: `${200 * (b / a)}px`,
-                            maxHeight: "200px",
-                          }
-                        : { width: "200px", height: "200px" }
-                    }
+                    style={{
+                      clipPath,
+                      width: "200px",
+                      height: `${200 * (b / a)}px`,
+                      maxHeight: "200px",
+                    }}
                   />
                 </div>
 
@@ -500,7 +492,7 @@ export default function ClipPathGenerator() {
                     </Button>
                   </div>
 
-                  {isCodeExpanded && clipPath && (
+                  {isCodeExpanded && (
                     <div className="bg-slate-900 text-slate-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
                       <div className="text-slate-400 mb-1">{"/* CSS */"}</div>
                       <div className="text-blue-300">clip-path</div>

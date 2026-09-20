@@ -19,7 +19,7 @@ export function ResourceHeader({ title }: { title: string; }) {
 export function ResourceFooter({ children }: PropsWithChildren) {
   return (
     <div className="flex justify-between border-t mt-4 pt-4 text-xs text-muted-foreground">
-      <p>Written by: Maciej &quot;mcjk&quot; Gomoła</p>
+      <p>Written by: Maciej Gomoła</p>
       {children}
     </div>
   );

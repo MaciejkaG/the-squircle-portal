@@ -24,7 +24,7 @@ export function Link(props: NextLinkProps | ExternalLinkProps) {
       <a
         {...anchorProps}
         className={cn(linkStyles, props.className)}
-        target="_blank"
+        target={targetBlank ? "_blank" : undefined}
         rel="noopener noreferrer"
       >
         {props.children}

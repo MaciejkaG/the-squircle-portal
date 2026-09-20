@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import {
@@ -32,7 +33,7 @@ const learningResources: Menu = [
   {
     title: "Squircles — Mathematical definition",
     href: "/learn/mathematical-definition",
-    description: "Learn about the Lamé curve and it's mathematical definition.",
+    description: "Learn about the Lamé curve and its mathematical definition.",
   },
   {
     title: "Squircles — JavaScript Implementation",
@@ -76,15 +77,19 @@ export function Navbar() {
         )}
       >
         <Link href="/">
-          <img
+          <Image
             src="/tsp-logo-light.svg"
             alt="The Squircle Portal full logo light theme"
-            className="h-7 hidden sm:block dark:hidden"
+            width={736}
+            height={120}
+            className="h-7 w-auto hidden sm:block dark:hidden"
           />
-          <img
+          <Image
             src="/tsp-logo-dark.svg"
             alt="The Squircle Portal full logo dark theme"
-            className="h-7 hidden dark:sm:block"
+            width={736}
+            height={120}
+            className="h-7 w-auto hidden dark:sm:block"
           />
           <span className="font-display font-bold inline sm:hidden">TSP</span>
         </Link>
@@ -119,7 +124,17 @@ export function Navbar() {
 
         {/* Mobile Menu */}
         <div className="sm:hidden">
-          <Button variant="ghost" size="icon" onClick={toggleMobileMenu}>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label={
+              isMobileMenuOpen
+                ? "Close navigation menu"
+                : "Open navigation menu"
+            }
+            aria-expanded={isMobileMenuOpen}
+            onClick={toggleMobileMenu}
+          >
             {isMobileMenuOpen ? <X /> : <Menu />}
           </Button>
         </div>
